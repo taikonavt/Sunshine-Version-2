@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -64,7 +65,11 @@ public class MainActivity extends ActionBarActivity {
             String [] forecastArray = {
                     "Today - Sunny - 88/63",
                     "Tomorrow - Foggy - 70/46",
-                    "Weds - Cloudy - 72/63"};
+                    "Weds - Cloudy - 72/63",
+                    "Thurs - Asteroids - 75/65",
+                    "Fri - Heavy Rain - 65/56",
+                    "Sat - HELP TRAPPED IN WEATHERSTATION - 60/51",
+                    "Sun - Sunny - 80/60"};
 
             List<String> weekForecast = new ArrayList<String>(
                     Arrays.asList(forecastArray));
