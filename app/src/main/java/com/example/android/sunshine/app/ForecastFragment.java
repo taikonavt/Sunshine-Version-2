@@ -111,8 +111,8 @@ public class ForecastFragment extends Fragment {
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
                 String baseUrl = "http://api.openweathermap.org/data/2.5/" +
-                        "forecast/daily?q=Moscow,RU&mode=json&&units=metric&cnt=7";
-                String apiKey = "&APPID= " + BuildConfig.OPEN_WEATHER_MAP_API_KEY;
+                        "forecast/daily?q=Moscow,RU&mode=json&units=metric&cnt=7";
+                String apiKey = "&APPID=" + BuildConfig.OPEN_WEATHER_MAP_API_KEY;
                 URL url = new URL(baseUrl.concat(apiKey));
 
                 //Create the request to OpenWeatherMap, and open the connection
@@ -143,7 +143,7 @@ public class ForecastFragment extends Fragment {
                 }
                 forecastJsonStr = buffer.toString();
             } catch (IOException e) {
-                Log.e("PlaceholderFragment", "Error ", e);
+                Log.e("ForecastFragment", "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in
                 // attempting to parse it.
                 return  null;
@@ -155,7 +155,7 @@ public class ForecastFragment extends Fragment {
                     try {
                         reader.close();
                     } catch (final IOException e) {
-                        Log.e("PlaceholderFragment", "Error closing stream", e);
+                        Log.e("ForecastFragment", "Error closing stream", e);
                     }
                 }
             }
