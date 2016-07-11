@@ -64,6 +64,7 @@ public class ForecastFragment extends Fragment {
         if (id == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
             weatherTask.execute("109341");
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -194,9 +195,6 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for(String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
             return resultStrs;
         }
 
@@ -241,8 +239,6 @@ public class ForecastFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-
-                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 //Create the request to OpenWeatherMap, and open the connection
                 urlConnection  = (HttpURLConnection) url.openConnection();
@@ -302,6 +298,20 @@ public class ForecastFragment extends Fragment {
             Log.d("Json", forecastJsonStr);
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+
+            List<String> weekForecast = new ArrayList<String>(
+                    Arrays.asList(strings));
+
+            mForecastAdapter = new ArrayAdapter<String> (getActivity(),
+                    R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
+
+            listView.setAdapter(mForecastAdapter);
+
+            super.onPostExecute(strings);
         }
     }
 }
