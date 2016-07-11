@@ -102,7 +102,7 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Toast.makeText(getActivity(), mForecastAdapter.getItem(i), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), ((TextView) view).getText(), Toast.LENGTH_LONG).show();
             }
         });
 
