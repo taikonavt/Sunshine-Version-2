@@ -301,17 +301,14 @@ public class ForecastFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
+        protected void onPostExecute(String[] result) {
 
-            List<String> weekForecast = new ArrayList<String>(
-                    Arrays.asList(strings));
-
-            mForecastAdapter = new ArrayAdapter<String> (getActivity(),
-                    R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
-
-            listView.setAdapter(mForecastAdapter);
-
-            super.onPostExecute(strings);
+            if(result != null) {
+                mForecastAdapter.clear();
+                for (String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+            }
         }
     }
 }
