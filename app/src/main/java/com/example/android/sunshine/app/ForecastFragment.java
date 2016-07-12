@@ -4,6 +4,7 @@ package com.example.android.sunshine.app;
  * Created by maxim on 27.06.16.
  */
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -102,7 +103,13 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Toast.makeText(getActivity(), ((TextView) view).getText(), Toast.LENGTH_LONG).show();
+                String forecast = ((TextView) view).getText().toString();
+
+                Toast.makeText(getActivity(), forecast, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(intent);
             }
         });
 
