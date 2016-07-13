@@ -15,7 +15,7 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Add 'general' preferecnes, defined in the XML file
+        // Add 'general' preferences, defined in the XML file
         // TODO: Add preferences from XML
 
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
@@ -53,7 +53,7 @@ public class SettingsActivity extends PreferenceActivity
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
         } else {
-            //For orher preferences, set the summary to the value's simple string representation.
+            //For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);
         }
         return true;
