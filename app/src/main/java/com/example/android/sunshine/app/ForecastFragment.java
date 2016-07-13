@@ -92,8 +92,11 @@ public class ForecastFragment extends Fragment {
         final List<String> weekForecast = new ArrayList<String>(
                 Arrays.asList(forecastArray));
 
-        mForecastAdapter = new ArrayAdapter<String> (getActivity(),
-                R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
+        mForecastAdapter = new ArrayAdapter<String> (
+                getActivity(),
+                R.layout.list_item_forecast,
+                R.id.list_item_forecast_textview,
+                weekForecast);
 
         listView = (ListView) rootView.findViewById(R.id.listview_forecast);
 
