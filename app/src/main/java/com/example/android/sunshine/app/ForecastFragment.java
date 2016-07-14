@@ -4,10 +4,13 @@ package com.example.android.sunshine.app;
  * Created by maxim on 27.06.16.
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -66,8 +69,14 @@ public class ForecastFragment extends Fragment {
 
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
+
+            SharedPreferences preferences = PreferenceManager
+                                                .getDefaultSharedPreferences(getActivity());
+            String location = preferences.getString(getString(R.string.pref_location_key),
+                    getString(R.string.pref_location_default));
+
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("109341");
+            weatherTask.execute(location);
 
             return true;
         }
@@ -167,7 +176,7 @@ public class ForecastFragment extends Fragment {
             JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
             /* OWM returns daily forecasts based upon the local time of the city that is being
-            aske for , which means that we need to know the GMT offset to translate this daya
+            ask for , which means that we need to know the GMT offset to translate this daya
             properly.
              */
 
