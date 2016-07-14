@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class DetailActivity extends ActionBarActivity {
 
+    String LOG_TAG = "myLogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,10 @@ public class DetailActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
             return true;
         }
 
@@ -56,6 +61,7 @@ public class DetailActivity extends ActionBarActivity {
     public static class DetailFragment extends Fragment {
 
         TextView textView;
+        String LOG_TAG = "myLogs";
 
         public DetailFragment() {
         }
@@ -70,8 +76,6 @@ public class DetailActivity extends ActionBarActivity {
             String forecast = intent.getStringExtra(Intent.EXTRA_TEXT);
 
             textView = (TextView) rootView.findViewById(R.id.frag_det_textview);
-
-            Log.d("Extra text", forecast);
 
             textView.setText(forecast);
 
