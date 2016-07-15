@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,7 +50,6 @@ public class ForecastFragment extends Fragment {
     ArrayAdapter<String> mForecastAdapter;
     ListView listView;
     String MY_LOG_TAG = "myLogs";
-    int my =0;
 
     public ForecastFragment() {
     }
@@ -70,13 +70,15 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_refresh) {
 
-            updateWeather();
-
-            return true;
+        switch (id) {
+            case (R.id.action_refresh): {
+                updateWeather();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void updateWeather() {
