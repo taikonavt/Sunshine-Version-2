@@ -48,6 +48,8 @@ public class ForecastFragment extends Fragment {
 
     ArrayAdapter<String> mForecastAdapter;
     ListView listView;
+    String MY_LOG_TAG = "myLogs";
+    int my =0;
 
     public ForecastFragment() {
     }
@@ -116,8 +118,6 @@ public class ForecastFragment extends Fragment {
 
                 String forecast = ((TextView) view).getText().toString();
 
-                Toast.makeText(getActivity(), forecast, Toast.LENGTH_LONG).show();
-
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(intent);
@@ -144,7 +144,15 @@ public class ForecastFragment extends Fragment {
         /*
         Prepare the weather high/lows for presentation.
          */
-        private String formatHighLows(double high, double low) {
+        private String formatHighLows(double high, double low, String unitType) {
+
+            if (unitType.equals(getString(R.string.pref_units_imperial))) {
+                high = (high * 1.8) + 32;
+                low = (low * 1.8) + 32;
+            } else if (!unitType.equals(getString(R.string.pref_units_metric))) {
+                Log.d(LOG_TAG, "Unit type not found: " + unitType);
+            }
+
             //For presentation, assume the user doesn't care about tenths of a degree.
             long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
@@ -154,7 +162,7 @@ public class ForecastFragment extends Fragment {
         }
 
         /*
-        Take the Stuing representing the complete forecast in JSON Format and
+        Take the String representing the complete forecast in JSON Format and
         pull out the data we need to construct the Strings needed for the wireframes.
 
         Fortunately parsing is easy: constructor takes the JSON sring and conversts it
@@ -220,7 +228,18 @@ public class ForecastFragment extends Fragment {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                highAndLow = formatHighLows(high, low);
+                /* Data is fetched in Celsius by default.
+                If user prefers to see in Fahrenheit so that the user can
+                change this option without us having to re-fetch the data once
+                we start storing the values in a database.
+                */
+                SharedPreferences preferences = PreferenceManager
+                        .getDefaultSharedPreferences(getActivity());
+                String unitType = preferences.getString(
+                        getString(R.string.pref_unit_key),
+                        getString(R.string.pref_unit_default));
+
+                highAndLow = formatHighLows(high, low, unitType);
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
@@ -334,6 +353,7 @@ public class ForecastFragment extends Fragment {
 
             if(result != null) {
                 mForecastAdapter.clear();
+
                 for (String dayForecastStr : result) {
                     mForecastAdapter.add(dayForecastStr);
                 }
