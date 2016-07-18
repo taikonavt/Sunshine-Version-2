@@ -108,6 +108,7 @@ public class ForecastFragment extends Fragment {
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview,
+
                 new ArrayList<String>());
 
         listView = (ListView) rootView.findViewById(R.id.listview_forecast);
