@@ -155,7 +155,7 @@ public class WeatherContract {
                     .appendPath(Long.toString(normalizeDate(date))).build();
         }
 
-        public static String getLocationSettomgFromUri(Uri uri) {
+        public static String getLocationSettingFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
 
